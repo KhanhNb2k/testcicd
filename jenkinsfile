@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/your-repo/testcicd.git'
+                git 'https://github.com/KhanhNb2k/testcicd.git'
             }
         }
         stage('Run Tests') {
