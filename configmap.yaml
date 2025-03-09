@@ -1,0 +1,80 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-content
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bóng Đá 24h</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
+            header { background: #008000; color: white; padding: 20px; font-size: 28px; text-align: center; font-weight: bold; }
+            nav { background: #004d00; padding: 15px; text-align: center; }
+            nav a { color: white; margin: 20px; text-decoration: none; font-size: 18px; font-weight: bold; padding: 10px 15px; }
+            nav a:hover { background: #006600; border-radius: 5px; }
+            .container { width: 90%; margin: auto; max-width: 1200px; }
+            .news-section { display: flex; flex-wrap: wrap; justify-content: space-between; margin-top: 20px; }
+            .news-item { width: 30%; background: white; padding: 15px; margin-bottom: 20px; box-shadow: 2px 2px 5px rgba(0,0,0,0.1); border-radius: 8px; }
+            .news-item img { width: 100%; height: auto; border-radius: 8px; }
+            .news-item h3 { font-size: 18px; margin: 10px 0; }
+            .match-list { width: 100%; border-collapse: collapse; margin-top: 10px; }
+            .match-list td { padding: 10px; border: 1px solid #ddd; background: white; }
+            .video-container { width: 100%; max-width: 800px; margin: auto; }
+            footer { background: #333; color: white; padding: 15px; text-align: center; margin-top: 20px; font-size: 14px; }
+            @media (max-width: 768px) { .news-item { width: 100%; } }
+        </style>
+    </head>
+    <body>
+        <header>
+            ⚽ Bóng Đá 24h - Cập Nhật Tin Tức Bóng Đá Mới Nhất
+        </header>
+        <nav>
+            <a href="#home">Trang chủ</a>
+            <a href="#matches">Lịch thi đấu</a>
+            <a href="#news">Tin tức</a>
+            <a href="#videos">Video</a>
+        </nav>
+
+        <section id="home" class="container">
+            <h2>🔥 Tin Nổi Bật</h2>
+            <div class="news-section">
+                <div class="news-item">
+                    <img src="https://via.placeholder.com/400x250" alt="Bóng đá 1">
+                    <h3>Trực tiếp Hà Nội vs Hà Tĩnh: Thắng để áp sát ngôi đầu</h3>
+                </div>
+                <div class="news-item">
+                    <img src="https://via.placeholder.com/400x250" alt="Bóng đá 2">
+                    <h3>Vì sao MU gặp khó trong cuộc đua top 4?</h3>
+                </div>
+                <div class="news-item">
+                    <img src="https://via.placeholder.com/400x250" alt="Bóng đá 3">
+                    <h3>Messi tỏa sáng giúp Inter Miami thắng 3-1</h3>
+                </div>
+            </div>
+        </section>
+
+        <section id="matches" class="container">
+            <h2>⚽ Lịch Thi Đấu</h2>
+            <table class="match-list">
+                <tr><td>Real Madrid vs Barcelona - 20:00 12/03/2025</td></tr>
+                <tr><td>Manchester United vs Chelsea - 22:00 13/03/2025</td></tr>
+                <tr><td>Liverpool vs Arsenal - 19:30 14/03/2025</td></tr>
+            </table>
+        </section>
+
+        <section id="videos" class="container">
+            <h2>🎥 Video Highlight</h2>
+            <div class="video-container">
+                <iframe width="800" height="450" src="https://www.youtube.com/embed/KMbD6WVCJ_w" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <footer>
+            © 2025 Bóng Đá 24h - Nơi Hội Tụ Đam Mê Bóng Đá
+        </footer>
+    </body>
+    </html>
