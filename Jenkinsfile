@@ -1,4 +1,4 @@
-pipeline {
+pipeline { 
     agent any
     environment {
         REGISTRY = "harbor.local"
@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/KhanhNb2k/testcicd.git'
+                git credentialsId: 'github-credentials', url: 'https://github.com/KhanhNb2k/testcicd.git'
             }
         }
         stage('Run Tests') {
@@ -32,14 +32,27 @@ pipeline {
         }
         stage('Update Kubernetes Deployment') {
             steps {
-                sh 'kubectl set image deployment/web-app web-app=$REGISTRY/$REPO:$IMAGE_TAG -n default'
+                sh '''
+                kubectl get namespace default || kubectl create namespace default
+                kubectl set image deployment/web-app web-app=$REGISTRY/$REPO:$IMAGE_TAG -n default
+                '''
             }
         }
         stage('Trigger ArgoCD Sync') {
             steps {
-                sh 'curl -X POST -H "Content-Type: application/json" -d \'{"name": "web-app", "sync": true}\' http://argocd-server/api/v1/applications/web-app/sync'
+                withCredentials([string(credentialsId: 'argocd-token', variable: 'ARGOCD_TOKEN')]) {
+                    sh '''
+                    curl -X POST -H "Content-Type: application/json" \
+                         -H "Authorization: Bearer $ARGOCD_TOKEN" \
+                         http://argocd-server/api/v1/applications/web-app/sync
+                    '''
+                }
+            }
+        }
+        stage('Cleanup Docker') {
+            steps {
+                sh 'docker rmi $REGISTRY/$REPO:$IMAGE_TAG || true'
             }
         }
     }
 }
-
